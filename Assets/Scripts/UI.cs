@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
 
     public ToggleGroup gender;
     public TextMeshProUGUI age;
+    public TextMeshProUGUI nickname;
 
     //Game
 
@@ -26,6 +27,7 @@ public class UI : MonoBehaviour
 
     public TextMeshProUGUI resultGender;
     public TextMeshProUGUI resultAge;
+    public TextMeshProUGUI resultName;
 
     public GameObject warning;
 
@@ -60,6 +62,9 @@ public class UI : MonoBehaviour
 
     public bool SetInfo()
     {
+
+        resultName.text = nickname.text;
+
         if (isInt(age.text))
         {
             resultAge.text = age.text;
