@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        if (ui.SetInfo()) //나이 입력하면 시작
-        {
+        //if (ui.SetInfo()) //나이 입력하면 시작
+        //{
             Debug.Log("시작");
 
             startCanvas.SetActive(false);
@@ -53,13 +53,13 @@ public class GameManager : MonoBehaviour
             overCanvas.SetActive(false);
 
             stage.StartGame();
-        }
+        //}
     }
 
     public void TestStart()
     {
-        if (ui.SetInfo()) //나이 입력하면 시작
-        {
+        //if (ui.SetInfo()) //나이 입력하면 시작
+        //{
             Debug.Log("파일럿 시작");
 
             startCanvas.SetActive(false);
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
             overCanvas.SetActive(false);
 
             stage.StartTest();
-        }
+        //}
     }
 
     public void GameOver(int totalQ, int correct, int[] scores, float[] times)
@@ -79,6 +79,6 @@ public class GameManager : MonoBehaviour
         overCanvas.SetActive(true);
 
         ui.result(totalQ, correct);
-        ui.resultForPilot(scores, times);
+        //ui.resultForPilot(scores, times);
     }
 }

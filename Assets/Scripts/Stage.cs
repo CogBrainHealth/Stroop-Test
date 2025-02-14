@@ -194,7 +194,7 @@ public class Stage:MonoBehaviour
 
     public void startQuest()
     {
-        stage.text = thisQuestNum+1.ToString() + "/10";
+        stage.text = (thisQuestNum + 1).ToString() + "/10";
 
         //문제가 남았으면 다음 문제
         if (thisQuestNum < totalQuest)
