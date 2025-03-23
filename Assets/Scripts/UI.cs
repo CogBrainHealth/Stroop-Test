@@ -29,7 +29,7 @@ public class UI : MonoBehaviour
 
     public void result(int total, int correct)
     {
-        Score.text = (correct * 100 / total).ToString() + "¡°";
+        Score.text = (correct * 100 / total).ToString() + "Ï†ê";
         scoreBar.fillAmount = (float)correct / total;
     }
 
@@ -63,17 +63,17 @@ public class UI : MonoBehaviour
     //void Start()
     //{
     //    warning.SetActive(false);
-    //    resultGender.text = "ø©º∫";
+    //    resultGender.text = "Ïó¨ÏÑ±";
     //}
 
     //public void toggleF()
     //{
-    //    resultGender.text = "ø©º∫";
+    //    resultGender.text = "Ïó¨ÏÑ±";
     //}
 
     //public void toggleM()
     //{
-    //    resultGender.text = "≥≤º∫";
+    //    resultGender.text = "ÎÇ®ÏÑ±";
     //}
 
     //public bool SetInfo()
@@ -114,13 +114,13 @@ public class UI : MonoBehaviour
     //{
     //    Debug.Log(scores + " : " + times);
 
-    //    //¡§∫∏ ºº∆√
+    //    //Ï†ïÎ≥¥ ÏÑ∏ÌåÖ
     //    for (int i = 0; i < scores.Length; i++)
     //    {
-    //        //Ω√∞£ ºº∆√
+    //        //ÏãúÍ∞Ñ ÏÑ∏ÌåÖ
     //        time[i].text = times[i].ToString("F2");
 
-    //        //¡§¥‰ ø©∫Œ ºº∆√
+    //        //Ï†ïÎãµ Ïó¨Î∂Ä ÏÑ∏ÌåÖ
     //        if (scores[i] == 1)
     //            score[i].text = "O";
     //        else

@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject startCanvas;
     public GameObject gameCanvas;
     public GameObject overCanvas;
+    
+    public Animator animator;
 
     public UI ui;
     public Stage stage;
@@ -13,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public int roundCount = 10;
 
-    //½Ì±ÛÅæ
+    //ï¿½Ì±ï¿½ï¿½ï¿½
     public static GameManager Instance { get; private set; }
 
     public void Awake()
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void GameReady()
     {
-        Debug.Log("ÁØºñ");
+        Debug.Log("ï¿½Øºï¿½");
 
         stage.retest();
 
@@ -44,23 +47,30 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        //if (ui.SetInfo()) //³ªÀÌ ÀÔ·ÂÇÏ¸é ½ÃÀÛ
+        //if (ui.SetInfo()) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         //{
-            Debug.Log("½ÃÀÛ");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½");
+            StartCoroutine(WaitAndSkip()); // ëŒ€ê¸°
+            //}
+    }
 
-            startCanvas.SetActive(false);
-            gameCanvas.SetActive(true);
-            overCanvas.SetActive(false);
+    IEnumerator WaitAndSkip()
+    {
+        animator.SetBool("isSkip", true);
+        yield return new WaitForSeconds(0.7f); // ëŒ€ê¸°
+        
+        // startCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
+        overCanvas.SetActive(false);
 
-            stage.StartGame();
-        //}
+        stage.StartGame();
     }
 
     public void TestStart()
     {
-        //if (ui.SetInfo()) //³ªÀÌ ÀÔ·ÂÇÏ¸é ½ÃÀÛ
+        //if (ui.SetInfo()) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         //{
-            Debug.Log("ÆÄÀÏ·µ ½ÃÀÛ");
+            Debug.Log("ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             startCanvas.SetActive(false);
             gameCanvas.SetActive(true);
@@ -72,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int totalQ, int correct, int[] scores, float[] times)
     {
-        Debug.Log("Á¾·á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½");
 
         startCanvas.SetActive(false);
         gameCanvas.SetActive(false);

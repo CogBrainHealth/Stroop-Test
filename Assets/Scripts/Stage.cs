@@ -9,32 +9,32 @@ public class Stage:MonoBehaviour
 {
     public GameManager gm;
 
-    //»ó¼ö
-    public const float questTime = 3f; //¹®Á¦ Á¦½Ã ÈÄ Ä«¿îÆ®´Ù¿î
-    const float TimerSize = 1600f / 10f; //¹ÙÀÇ ¿ø·¡ »çÀÌÁî 1600f,  ÀüÃ¼ ½Ã°£ 10f 
+    //ìƒìˆ˜
+    public const float questTime = 3f; //ë¬¸ì œ ì œì‹œ í›„ ì¹´ìš´íŠ¸ë‹¤ìš´
+    const float TimerSize = 1600f / 10f; //ë°”ì˜ ì›ë˜ ì‚¬ì´ì¦ˆ 1600f,  ì „ì²´ ì‹œê°„ 10f 
 
-    //µ¥ÀÌÅÍ
-    StroopData[] data; //Scriptable ¿ÀºêÁ§Æ®
+    //ë°ì´í„°
+    StroopData[] data; //Scriptable ì˜¤ë¸Œì íŠ¸
 
-    //Ä«µå
-    public int cardCount = 4; //ÇöÀç ½ºÅ×ÀÌÁöÀÇ Ä«µå ¼ö
+    //ì¹´ë“œ
+    public int cardCount = 4; //í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ ì¹´ë“œ ìˆ˜
     public GameObject[] cardPanel;
 
-    public Card[] list; //ÇöÀç ½ºÅ×ÀÌÁöÀÇ Ä«µå ¿ÀºêÁ§Æ®µé
+    public Card[] list; //í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ ì¹´ë“œ ì˜¤ë¸Œì íŠ¸ë“¤
 
-    //¹®Á¦ °ü¸®
+    //ë¬¸ì œ ê´€ë¦¬
     public TextMeshProUGUI stage;
     public RectTransform timerBar;
 
     int roundFlag = 0;
-    int totalQuest = 0; //ÀüÃ¼ ¹®Á¦ ¼ö
-    int thisQuestNum = 0; //ÇöÀç ¹®Á¦ ¼ø¼­
-    int answer = -1; //ÇöÀç Á¤´ä
+    int totalQuest = 0; //ì „ì²´ ë¬¸ì œ ìˆ˜
+    int thisQuestNum = 0; //í˜„ì¬ ë¬¸ì œ ìˆœì„œ
+    int answer = -1; //í˜„ì¬ ì •ë‹µ
 
-    //¼öÁı µ¥ÀÌÅÍ
-    int correct = 0; //Á¤´ä ¼ö
+    //ìˆ˜ì§‘ ë°ì´í„°
+    int correct = 0; //ì •ë‹µ ìˆ˜
 
-    //ÆÄÀÏ·µ
+    //íŒŒì¼ëŸ¿
     bool pilotFlag = false;
 
     int[] score = new int[10];
@@ -61,7 +61,7 @@ public class Stage:MonoBehaviour
     public TextMeshProUGUI questIntroduce;
     public TextMeshProUGUI countDown;
 
-    //½Ì±ÛÅæ
+    //ì‹±ê¸€í†¤
     public static Stage Instance { get; private set; }
 
     enum questOption
@@ -82,7 +82,7 @@ public class Stage:MonoBehaviour
             Destroy(this);
         }
 
-        //Scriptable ¿ÀºêÁ§Æ® ¸ğµÎ ÀĞ¾î¿À±â. (Resource/Card)
+        //Scriptable ì˜¤ë¸Œì íŠ¸ ëª¨ë‘ ì½ì–´ì˜¤ê¸°. (Resource/Card)
         data = Resources.LoadAll<StroopData>("Card");
         timerBar.gameObject.SetActive(false);
         pilotDummy();
@@ -90,7 +90,7 @@ public class Stage:MonoBehaviour
 
     void pilotDummy()
     {
-        //Á¤´ä Ä«µå¹øÈ£, °¢ Ä«µåÀÇ text, image ¹øÈ£
+        //ì •ë‹µ ì¹´ë“œë²ˆí˜¸, ê° ì¹´ë“œì˜ text, image ë²ˆí˜¸
         var t1 = new PilotData(new int[] { 1, 3, 2, 2, 3}, false, questOption.TEXT);
         var t2 = new PilotData(new int[] { 0, 3, 4, 1, 3 }, false, questOption.IMAGE);
         var t3 = new PilotData(new int[] { 2, 2, 1, 2, 3, 1, 2, 4, 4 }, false, questOption.TEXT);
@@ -125,7 +125,7 @@ public class Stage:MonoBehaviour
         }
     }
 
-    void cardRead() //Ä«µå ¿ÀºêÁ§Æ® ÀĞ¾î¿À±â
+    void cardRead() //ì¹´ë“œ ì˜¤ë¸Œì íŠ¸ ì½ì–´ì˜¤ê¸°
     {
         for (int i = 0; i < cardPanel.Length; i++)
             cardPanel[i].SetActive(false);
@@ -142,9 +142,9 @@ public class Stage:MonoBehaviour
         }
     }
 
-    Transform cardActive() //¿ÀºêÁ§Æ® Ç®¸µ - ´Ù¸¥ Ä«µå ÆÇÀº ºñÈ°¼ºÈ­
+    Transform cardActive() //ì˜¤ë¸Œì íŠ¸ í’€ë§ - ë‹¤ë¥¸ ì¹´ë“œ íŒì€ ë¹„í™œì„±í™”
     {
-        switch (cardCount) //case Ä«µå ¼ö, ±×¿¡ ¸Â°Ô ¼¼ÆÃµÈ Ä«µåÆÇÀÇ ÀÎµ¦½º
+        switch (cardCount) //case ì¹´ë“œ ìˆ˜, ê·¸ì— ë§ê²Œ ì„¸íŒ…ëœ ì¹´ë“œíŒì˜ ì¸ë±ìŠ¤
         {
             case 2:
                 cardPanel[0].SetActive(true);
@@ -157,7 +157,7 @@ public class Stage:MonoBehaviour
                 return cardPanel[2].transform;
             default:
                 cardPanel[1].SetActive(true);
-                Debug.Log("Ä«µå ¼ö ¼¼ÆÃ ¹Ù¶÷");
+                Debug.Log("ì¹´ë“œ ìˆ˜ ì„¸íŒ… ë°”ëŒ");
                 return cardPanel[1].transform;
         }
     }
@@ -196,46 +196,46 @@ public class Stage:MonoBehaviour
     {
         stage.text = (thisQuestNum + 1).ToString() + "/10";
 
-        //¹®Á¦°¡ ³²¾ÒÀ¸¸é ´ÙÀ½ ¹®Á¦
+        //ë¬¸ì œê°€ ë‚¨ì•˜ìœ¼ë©´ ë‹¤ìŒ ë¬¸ì œ
         if (thisQuestNum < totalQuest)
         {
             int option = Random.Range(0, System.Enum.GetValues(typeof(questOption)).Length);
             quest(option);
         }
-        else //¹®Á¦°¡ ¾È ³²¾Ò´Ù¸é °ÔÀÓ Á¾·á
+        else //ë¬¸ì œê°€ ì•ˆ ë‚¨ì•˜ë‹¤ë©´ ê²Œì„ ì¢…ë£Œ
             StartGame();
     }
 
     private void quest(int option)
     {
-        //´äÀÌ µÉ °ª
+        //ë‹µì´ ë  ê°’
         int correctData = Random.Range(0, data.Length);
 
-        //´äÀÌ µÉ Ä«µå
+        //ë‹µì´ ë  ì¹´ë“œ
         answer = Random.Range(0, list.Length);
 
-        if (option == (int)questOption.TEXT) //ÀÏÄ¡ÇÏ´Â ±ÛÀÚ ¸ÂÃß±â
+        if (option == (int)questOption.TEXT) //ì¼ì¹˜í•˜ëŠ” ê¸€ì ë§ì¶”ê¸°
         {
-            //¹®Á¦ ÃâÁ¦
-            questIntroduce.text = data[correctData].text + " ±ÛÀÚ¸¦ Ã£¾ÆÁÖ¼¼¿ä!";
+            //ë¬¸ì œ ì¶œì œ
+            questIntroduce.text = data[correctData].text + " ê¸€ìë¥¼ ì°¾ì•„ì£¼ì„¸ìš”!";
 
-            //Á¤´ä Ä«µå ¼¼ÆÃ
+            //ì •ë‹µ ì¹´ë“œ ì„¸íŒ…
             list[answer].setCard(data[correctData].text, data[unequalData(correctData)].image);
 
-            //ÇÔÁ¤ Ä«µå ¼±ÅÃ
+            //í•¨ì • ì¹´ë“œ ì„ íƒ
             int imageFake = unequalAnswer(answer);
 
-            //¿À´ä Ä«µå ÅØ½ºÆ® ¼¼ÆÃ
+            //ì˜¤ë‹µ ì¹´ë“œ í…ìŠ¤íŠ¸ ì„¸íŒ…
             for (int i = 0; i < list.Length; i++)
             {
-                if (answer == i) //Á¤´ä Ä«µå´Â ÀÌ¹Ì ¼¼ÆÃµÊ.
+                if (answer == i) //ì •ë‹µ ì¹´ë“œëŠ” ì´ë¯¸ ì„¸íŒ…ë¨.
                     continue;
-                else //¿À´ä Ä«µå ¼¼ÆÃ
+                else //ì˜¤ë‹µ ì¹´ë“œ ì„¸íŒ…
                 {
-                    //ÅØ½ºÆ® ¼¼ÆÃ - ´ä¾ÈÀÌ¶û ´Ş¶ó¾ß ÇÔ.
+                    //í…ìŠ¤íŠ¸ ì„¸íŒ… - ë‹µì•ˆì´ë‘ ë‹¬ë¼ì•¼ í•¨.
                     string text = data[unequalData(correctData)].text;
 
-                    //ÀÌ¹ÌÁö ¼¼ÆÃ - ´ä¾È°ú °°Àº °Í ÇÏ³ª, ³ª¸ÓÁö ·£´ı
+                    //ì´ë¯¸ì§€ ì„¸íŒ… - ë‹µì•ˆê³¼ ê°™ì€ ê²ƒ í•˜ë‚˜, ë‚˜ë¨¸ì§€ ëœë¤
                     Sprite image;
 
                     if (i == imageFake)
@@ -247,25 +247,25 @@ public class Stage:MonoBehaviour
                 }
             }
         }
-        else if (option == (int)questOption.IMAGE) //ÀÏÄ¡ÇÏ´Â ÀÌ¹ÌÁö ¸ÂÃß±â
+        else if (option == (int)questOption.IMAGE) //ì¼ì¹˜í•˜ëŠ” ì´ë¯¸ì§€ ë§ì¶”ê¸°
         {
-            //¹®Á¦ ÃâÁ¦
-            questIntroduce.text = data[correctData].text + " ÀÌ¹ÌÁö¸¦ Ã£¾ÆÁÖ¼¼¿ä!";
+            //ë¬¸ì œ ì¶œì œ
+            questIntroduce.text = data[correctData].text + " ì´ë¯¸ì§€ë¥¼ ì°¾ì•„ì£¼ì„¸ìš”!";
 
-            //Á¤´ä Ä«µå ¼¼ÆÃ
+            //ì •ë‹µ ì¹´ë“œ ì„¸íŒ…
             list[answer].setCard(data[unequalData(correctData)].text, data[correctData].image);
 
-            //¿À´ä Ä«µå ÅØ½ºÆ® ¼¼ÆÃ
+            //ì˜¤ë‹µ ì¹´ë“œ í…ìŠ¤íŠ¸ ì„¸íŒ…
             for (int i = 0; i < list.Length; i++)
             {
-                if (answer == i) //Á¤´ä Ä«µå´Â ÀÌ¹Ì ¼¼ÆÃµÊ.
+                if (answer == i) //ì •ë‹µ ì¹´ë“œëŠ” ì´ë¯¸ ì„¸íŒ…ë¨.
                     continue;
-                else //¿À´ä Ä«µå ¼¼ÆÃ
+                else //ì˜¤ë‹µ ì¹´ë“œ ì„¸íŒ…
                 {
-                    //¿ÀºêÁ§Æ® ¼¼ÆÃ -  ´ä¾ÈÀÌ¶û ´Ş¶ó¾ß ÇÔ.
+                    //ì˜¤ë¸Œì íŠ¸ ì„¸íŒ… -  ë‹µì•ˆì´ë‘ ë‹¬ë¼ì•¼ í•¨.
                     Sprite image = data[unequalData(correctData)].image;
 
-                    //ÅØ½ºÆ® ¼¼ÆÃ - ´ä¾È°ú °°Àº °Í ÇÏ³ª, ³ª¸ÓÁö ·£´ı
+                    //í…ìŠ¤íŠ¸ ì„¸íŒ… - ë‹µì•ˆê³¼ ê°™ì€ ê²ƒ í•˜ë‚˜, ë‚˜ë¨¸ì§€ ëœë¤
                     string text;
                     int textFake = unequalAnswer(answer);
 
@@ -280,7 +280,7 @@ public class Stage:MonoBehaviour
         }
         else
         {
-            Debug.Log("¾ÆÁ÷ Ãß°¡µÇÁö ¾ÊÀº ¹®Á¦ ¿É¼Ç.");
+            Debug.Log("ì•„ì§ ì¶”ê°€ë˜ì§€ ì•Šì€ ë¬¸ì œ ì˜µì…˜.");
         }
 
         StartCoroutine(questTimer());
@@ -342,11 +342,11 @@ public class Stage:MonoBehaviour
                     while (pilotData[i].played);
                     break;
                 default:
-                    Debug.Log("±×·± °Å ¾ø´Ù");
+                    Debug.Log("ê·¸ëŸ° ê±° ì—†ë‹¤");
                     break;
             }
 
-            Debug.Log("¹®Á¦ ¹øÈ£: " + i.ToString());
+            Debug.Log("ë¬¸ì œ ë²ˆí˜¸: " + i.ToString());
 
             pilotData[i].played = true;
             testQuest(pilotData[i].cardData, pilotData[i].option);
@@ -359,14 +359,14 @@ public class Stage:MonoBehaviour
     {
         if (questData.Length != (list.Length * 2 + 1))
         {
-            Debug.Log("Àß¸øµÈ Äù½ºÆ® µ¥ÀÌÅÍ");
+            Debug.Log("ì˜ëª»ëœ í€˜ìŠ¤íŠ¸ ë°ì´í„°");
             return;
         }
 
-        //questData ÇÒ´ç
-        answer = questData[0]; //Á¤´ä ¹øÈ£
+        //questData í• ë‹¹
+        answer = questData[0]; //ì •ë‹µ ë²ˆí˜¸
 
-        for (int i = 0; i < list.Length; i++) //Ä«µå ¸®½ºÆ®
+        for (int i = 0; i < list.Length; i++) //ì¹´ë“œ ë¦¬ìŠ¤íŠ¸
         {
             string text = data[questData[i * 2 + 1]].text;
             Sprite image = data[questData[i * 2 + 2]].image;
@@ -375,9 +375,9 @@ public class Stage:MonoBehaviour
 
             if (i == answer)
                 if (option == questOption.TEXT)
-                   questIntroduce.text = text + " ±ÛÀÚ¸¦ Ã£¾ÆÁÖ¼¼¿ä!";
+                   questIntroduce.text = text + " ê¸€ìë¥¼ ì°¾ì•„ì£¼ì„¸ìš”!";
                 else if (option == questOption.IMAGE)
-                    questIntroduce.text = data[questData[i * 2 + 2]].text + " ÀÌ¹ÌÁö¸¦ Ã£¾ÆÁÖ¼¼¿ä";
+                    questIntroduce.text = data[questData[i * 2 + 2]].text + " ì´ë¯¸ì§€ë¥¼ ì°¾ì•„ì£¼ì„¸ìš”";
         }
 
         StartCoroutine(questTimer());
@@ -385,13 +385,13 @@ public class Stage:MonoBehaviour
 
     private IEnumerator questTimer()
     {
-        //Ä«¿îÆ® ui ¼¼ÆÃ
+        //ì¹´ìš´íŠ¸ ui ì„¸íŒ…
         for (int i = 0; i < cardPanel.Length; i++)
             cardPanel[i].SetActive(false);
 
         countDown.gameObject.SetActive(true);
 
-        //Ä«¿îÆ® ´Ù¿î
+        //ì¹´ìš´íŠ¸ ë‹¤ìš´
         float second = questTime;
 
         while (second >= 0f)
@@ -401,7 +401,7 @@ public class Stage:MonoBehaviour
             yield return null;
         }
 
-        //°ÔÀÓ ui ¼¼ÆÃ
+        //ê²Œì„ ui ì„¸íŒ…
         countDown.gameObject.SetActive(false);
         tempTime = 0f;
         timerBar.gameObject.SetActive(true);
@@ -410,23 +410,23 @@ public class Stage:MonoBehaviour
 
     public void Choice(int num)
     {
-        time[thisQuestNum] = tempTime; //ÃÊ±âÈ­´Â startQuest¿¡¼­
+        time[thisQuestNum] = tempTime; //ì´ˆê¸°í™”ëŠ” startQuestì—ì„œ
         timerBar.gameObject.SetActive(false);
 
         if (answer == num)
         {
-            Debug.Log("Á¤´ä");
+            Debug.Log("ì •ë‹µ");
             score[thisQuestNum] = 1;
 
             correct++;
         }
         else
         {
-            Debug.Log("¿À´ä");
+            Debug.Log("ì˜¤ë‹µ");
             score[thisQuestNum] = 0;
         }
 
-        thisQuestNum++; //¹®Á¦ ¹øÈ£ 
+        thisQuestNum++; //ë¬¸ì œ ë²ˆí˜¸ 
 
         if (pilotFlag)
             startTestQuest();
@@ -436,17 +436,17 @@ public class Stage:MonoBehaviour
 
     public void retest()
     {
-        //¹®Á¦
+        //ë¬¸ì œ
         roundFlag = 0;
-        totalQuest = 0; //ÀüÃ¼ ¹®Á¦ ¼ö
-        thisQuestNum = 0; //ÇöÀç ¹®Á¦ ¼ø¼­
+        totalQuest = 0; //ì „ì²´ ë¬¸ì œ ìˆ˜
+        thisQuestNum = 0; //í˜„ì¬ ë¬¸ì œ ìˆœì„œ
 
-        //¼öÁı µ¥ÀÌÅÍ
-        correct = 0; //Á¤´ä ¼ö
+        //ìˆ˜ì§‘ ë°ì´í„°
+        correct = 0; //ì •ë‹µ ìˆ˜
         pilotFlag = false;
     }
 
-    //µ¥ÀÌÅÍ Áß Á¤´äÀÌ ¾Æ´Ñ ¹øÈ£ »ı¼º
+    //ë°ì´í„° ì¤‘ ì •ë‹µì´ ì•„ë‹Œ ë²ˆí˜¸ ìƒì„±
     int unequalData(int correct)
     {
         int temp;
@@ -456,7 +456,7 @@ public class Stage:MonoBehaviour
         return temp;
     }
 
-    //Ä«µå Áß Á¤´äÀÌ ¾Æ´Ñ ¹øÈ£ »ı¼º
+    //ì¹´ë“œ ì¤‘ ì •ë‹µì´ ì•„ë‹Œ ë²ˆí˜¸ ìƒì„±
     int unequalAnswer(int correct)
     {
         int temp;
@@ -466,7 +466,7 @@ public class Stage:MonoBehaviour
         return temp;
     }
 
-    //ÀĞ¾î¿Â µ¥ÀÌÅÍ ¸ğµÎ Ãâ·Â
+    //ì½ì–´ì˜¨ ë°ì´í„° ëª¨ë‘ ì¶œë ¥
     void testPrint()
     {
         for (int i = 0; i < data.Length; i++){
