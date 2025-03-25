@@ -9,10 +9,10 @@ public class Device : MonoBehaviour
 
     public void setRect()
     {
-        // ÇöÀç GameObject¿¡ ºÎÂøµÈ Camera ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿À´Â ÄÚµå
+        // í˜„ì¬ GameObjectì— ë¶€ì°©ëœ Camera ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ì½”ë“œ
         Camera cam = GetComponent<Camera>();
 
-        // ÇöÀç Ä«¸Ş¶óÀÇ ºäÆ÷Æ® ¿µ¿ªÀ» °¡Á®¿À´Â ÄÚµå
+        // í˜„ì¬ ì¹´ë©”ë¼ì˜ ë·°í¬íŠ¸ ì˜ì—­ì„ ê°€ì ¸ì˜¤ëŠ” ì½”ë“œ
         Rect viewportRect = cam.rect;
 
         float deviceWidth = (float)Screen.width;
@@ -27,14 +27,14 @@ public class Device : MonoBehaviour
             float newWidth = ((float)targetWidth / targetHeight) / ((float)deviceWidth / deviceHeight);
             //Screen.SetResolution((int)newWidth, (int)deviceHeight, FullScreenMode.Windowed);
             cam.rect = new Rect((1f - newWidth) / 2f, 0, newWidth, 1f);
-            Debug.Log("³Êºñ Á¶Á¤");
+            Debug.Log("ë„ˆë¹„ ì¡°ì •");
         }
         else
         {
             float newHeight = (deviceWidth / deviceHeight) / (targetWidth / targetHeight);
             //Screen.SetResolution((int)deviceWidth, (int)newHeight, FullScreenMode.Windowed);
             cam.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight);
-            Debug.Log("³ôÀÌ Á¶Á¤");
+            Debug.Log("ë†’ì´ ì¡°ì •");
         }
     }
 

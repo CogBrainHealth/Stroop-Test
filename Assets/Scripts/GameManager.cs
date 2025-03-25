@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
     {
         //if (ui.SetInfo()) //���� �Է��ϸ� ����
         //{
-            Debug.Log("����");
             StartCoroutine(WaitAndSkip()); // 대기
             //}
     }
@@ -82,13 +81,30 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int totalQ, int correct, int[] scores, float[] times)
     {
-        Debug.Log("����");
-
         startCanvas.SetActive(false);
         gameCanvas.SetActive(false);
         overCanvas.SetActive(true);
+        
+        float totalScore = 0f;
 
-        ui.result(totalQ, correct);
+        for (int i = 0; i < totalQ; i++)
+        {
+            if (scores[i] == 1)
+            {
+                float accuracy = (float)correct / totalQ * 100f; // 정답률 (%)
+                float score = (accuracy / 20f) + (5f - times[i]);
+                totalScore += score;
+            }
+            else
+            {
+                // 오답일 경우 점수 0점
+                totalScore += 0f;
+            }
+        }
+
+        Debug.Log("총 점수: " + totalScore.ToString("F2"));
+
+        ui.result(totalQ, totalScore);
         //ui.resultForPilot(scores, times);
     }
 }

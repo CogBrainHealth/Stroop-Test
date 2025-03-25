@@ -25,6 +25,7 @@ public class Stage:MonoBehaviour
     //문제 관리
     public TextMeshProUGUI stage;
     public RectTransform timerBar;
+    bool isTimeOutProcessed = false; // 시간 초과 처리 여부
 
     int roundFlag = 0;
     int totalQuest = 0; //전체 문제 수
@@ -122,6 +123,15 @@ public class Stage:MonoBehaviour
         {
             float size = (10f - tempTime) * TimerSize;
             timerBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
+            
+            // 시간 초과 시 자동 오답 처리
+            // 자동 오답 플래그는 한 번만 실행 되어야 함 isTimeOutProcessed 확인
+            if (tempTime >= 10f && !isTimeOutProcessed)
+            {
+                isTimeOutProcessed = true;
+                timerBar.gameObject.SetActive(false);
+                Choice(-1); // -1: 시간초과로 오답 처리
+            }
         }
     }
 
@@ -195,6 +205,7 @@ public class Stage:MonoBehaviour
     public void startQuest()
     {
         stage.text = (thisQuestNum + 1).ToString() + "/10";
+        isTimeOutProcessed = false; // new stage 자동 오답 플래그 초기화
 
         //문제가 남았으면 다음 문제
         if (thisQuestNum < totalQuest)
@@ -422,7 +433,7 @@ public class Stage:MonoBehaviour
         }
         else
         {
-            Debug.Log("오답");
+            Debug.Log(num == -1 ? "시간 초과" : "오답");
             score[thisQuestNum] = 0;
         }
 
