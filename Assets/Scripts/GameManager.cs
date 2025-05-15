@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Device d;
 
     public int roundCount = 10;
+    
+    private bool isPaused = false;
 
     //�̱���
     public static GameManager Instance { get; private set; }
@@ -77,6 +79,22 @@ public class GameManager : MonoBehaviour
 
             stage.StartTest();
         //}
+    }
+    
+    public void OnEndButtonPressed()
+    {
+        if (!isPaused)
+        {
+            Time.timeScale = 0f;  // 게임 정지
+            isPaused = true;
+            Debug.Log("게임 일시정지됨");
+        }
+        else
+        {
+            Time.timeScale = 1f;  // 다시 시작
+            isPaused = false;
+            Debug.Log("게임 다시 시작됨");
+        }
     }
 
     public void GameOver(int totalQ, int correct, int[] scores, float[] times)
