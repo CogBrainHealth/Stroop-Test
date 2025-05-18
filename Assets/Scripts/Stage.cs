@@ -228,7 +228,7 @@ public class Stage:MonoBehaviour
         if (option == (int)questOption.TEXT) //일치하는 글자 맞추기
         {
             //문제 출제
-            questIntroduce.text = data[correctData].text + " 글자를찾아주세요!";
+            questIntroduce.text = data[correctData].text + " 글자를 찾아주세요!";
 
             //정답 카드 세팅
             list[answer].setCard(data[correctData].text, data[unequalData(correctData)].image);

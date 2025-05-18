@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public GameObject startCanvas;
     public GameObject gameCanvas;
     public GameObject overCanvas;
+    public GameObject gameStopCanvas;
     
     public Animator animator;
 
@@ -38,13 +39,12 @@ public class GameManager : MonoBehaviour
 
     public void GameReady()
     {
-        Debug.Log("�غ�");
-
         stage.retest();
 
         startCanvas.SetActive(true);
         gameCanvas.SetActive(false);
         overCanvas.SetActive(false);
+        gameStopCanvas.SetActive(false);
     }
 
     public void GameStart()
@@ -69,16 +69,11 @@ public class GameManager : MonoBehaviour
 
     public void TestStart()
     {
-        //if (ui.SetInfo()) //���� �Է��ϸ� ����
-        //{
-            Debug.Log("���Ϸ� ����");
+        startCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
+        overCanvas.SetActive(false);
 
-            startCanvas.SetActive(false);
-            gameCanvas.SetActive(true);
-            overCanvas.SetActive(false);
-
-            stage.StartTest();
-        //}
+        stage.StartTest();
     }
     
     public void OnEndButtonPressed()

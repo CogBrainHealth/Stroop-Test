@@ -40,6 +40,7 @@ public class Device : MonoBehaviour
 
     private void OnPreCull()
     {
-        GL.Clear(true, true, new Color(250/256f, 203/256f, 103/256f,1f));
+        GL.Clear(true, true, new Color32(250, 201, 101, 255));
+
     }
 }
